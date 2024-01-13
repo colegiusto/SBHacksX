@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-class Items extends React.Component {
+class Circle extends React.Component {
   render() {
     const containerStyle = {
       position: 'relative',
@@ -75,4 +75,4 @@ class Items extends React.Component {
   }
 }
 
-export default Items;
+export default Circle;
