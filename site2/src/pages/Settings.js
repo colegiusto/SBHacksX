@@ -63,7 +63,7 @@ function Settings() {
 
     function readUserData(userId) {
         const dbRef = ref(getDatabase());
-        return get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+        get(child(dbRef, `users/${userId}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const vals = snapshot.val();
                 setSex2(vals.sex);
@@ -75,6 +75,7 @@ function Settings() {
         }).catch((error) => {
             console.error(error);
         });
+
     }
 
     function writeUserData(userId, ssex, wweight, eemail) {
@@ -92,12 +93,15 @@ function Settings() {
     function updateId() {
         try { userId = auth.currentUser.uid; setUnlogged(false); }
         catch (e) { userId = 0; setUnlogged(true); }
+
+        try { readUserData(userId); } catch (e) { console.log('sad') }
     }
 
     useEffect(() => updateId())
 
     return (
         <div>
+            <h1>Settings:</h1>
             {unlogged
                 ? <div> <button onClick={login}> Sign in</button> </div>
                 : <div> <form>
@@ -128,7 +132,6 @@ function Settings() {
                 </form> <button onClick={() => writeUserData(userId, sex, weight, email)}>Submit</button> <br></br><br></br>
                     <div>
                         <button onClick={logout} >Sign Out</button>
-                        {sex2} {email2} {weight2 }
                     </div>
                 </div>
             }
@@ -139,7 +142,7 @@ function Settings() {
             Sex: {sex2} <br></br>
             <br></br>
 
-            <Link id='' to='../'> ← Back </Link>
+            <Link to='../'> ← Back </Link>
 
         </div>
     )

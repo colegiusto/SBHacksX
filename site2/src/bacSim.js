@@ -5,6 +5,14 @@ let v_d = 58.4
 let startTime = (new Date()).getTime()/3600000
 let drinkTimes = []
 
+function setVd(weight, sex) {
+    if (weight == null) { v_d = 58.4 }
+    else if (sex == 'Male') { v_d = weight * 0.71; }
+    else if (sex == 'Female') { v_d = weight * 0.58; }
+    else { v_d = weight * 0.65; }
+}
+
+
 function takeDrink(){
     drinkTimes = [...drinkTimes, ((new Date()).getTime()/3600000-startTime)*timescale]
 }
@@ -43,4 +51,4 @@ function timeTilNext(){
     return (getBAC()-BACGoal+1.4/v_d)/0.015*60
 }
 
-export {getBAC, takeDrink, getDrinkGoal, setTargetBac, timeTilNext};
+export {getBAC, takeDrink, getDrinkGoal, setTargetBac, timeTilNext, setVd};
