@@ -96,6 +96,11 @@ class Main extends React.Component {
       fontSize: '10vmin',
     };
 
+    // const GUItextStyle = {
+    //   color: '#3e1a1a',
+    //   fontSize: '4vmin',
+    // }
+
     const emergencyStyle = {
       borderRadius: '50%',
       position: 'absolute',
@@ -160,11 +165,11 @@ class Main extends React.Component {
       </div>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
-          <div className='GUI' style={textStyle}>Your BAC is</div>
+          <div className='GUI'>Your  BAC  is</div>
           <div style={BACcircleStyle}>
           <div id='BAC' style={BACtextStyle}>{this.props.BAC.toFixed(2)+"%"}</div>
           </div>
-          {this.props.drinkIndex == 0 ? <div className='GUI' style={textStyle}>{"Minutes until next Drink:\n" + this.props.timeLeft.toFixed(1)}</div>: <div>You are BOOZIN!</div>}
+          {this.props.drinkIndex == 0 ? <div className='GUI'>{"Minutes until next Drink:\n" + this.props.timeLeft.toFixed(0)}</div>: <div class='GUI'>You are BOOZIN!</div>}
         </div>
         <div
         class='icon'

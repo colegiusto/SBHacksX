@@ -25,9 +25,10 @@ code {
 
 #BAC {
   font-family: 'Daydream';
-  font-size: '10vmin'
+  font-size: '10vmin';
 }
 
 .GUI {
-  font-family: 'FFAF';
+  font-family: 'Daydream';
+  font-size: '4vmin';
 }
