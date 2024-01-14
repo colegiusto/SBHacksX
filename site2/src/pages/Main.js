@@ -3,6 +3,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import {ReactComponent as Emergency} from './Emergency.svg';
+import {ReactComponent as Friend} from './Friend.svg';
+import {ReactComponent as Experience} from './Experience.svg';
+import {ReactComponent as Settings} from './Settings.svg';
+
+import {ReactComponent as Drink5} from './shotglass/glass5.svg'
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -61,25 +68,19 @@ class Main extends React.Component {
 
     const BACtextStyle = {
       color: 'white',
-
+      fontSize: '10vmin',
     };
 
-    const topLeftCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
+    const emergencyStyle = {
       borderRadius: '50%',
-      backgroundColor: 'green', // You can change the color as desired
       position: 'absolute',
       top: '0',
       left: '0',
       cursor: 'pointer',
     };
 
-    const topRightCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
+    const friendStyle = {
       borderRadius: '50%',
-      backgroundColor: 'red', // You can change the color as desired
       position: 'absolute',
       top: '0',
       right: '0',
@@ -87,10 +88,7 @@ class Main extends React.Component {
     };
 
     const expCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
       borderRadius: '50%',
-      backgroundColor: showExperience ? 'darkblue' : 'green', // Change color when clicked
       position: 'absolute',
       bottom: '0',
       left: '0',
@@ -98,10 +96,7 @@ class Main extends React.Component {
     };
 
     const settingsCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
       borderRadius: '50%',
-      backgroundColor: showSettings ? 'darkred' : 'red', // Change color when clicked
       position: 'absolute',
       bottom: '0',
       right: '0',
@@ -109,10 +104,7 @@ class Main extends React.Component {
     };
 
     const shotglassStyle = {
-      width: '27vmin',
-      height: '27vmin',
       borderRadius: '50%',
-      backgroundColor: 'pink', // You can change the color as desired
       position: 'absolute',
       bottom: '0',
       left: '50%',
@@ -141,16 +133,41 @@ class Main extends React.Component {
         <div style={circleContainerStyle}>
           <div class='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>Centered Text</div>
+          <div id='BAC' style={BACtextStyle}>0.00%</div>
           </div>
           <div class='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
-        <div style={topLeftCircleStyle} onClick={this.handleEmergencyClick}></div>
-        <div style={topRightCircleStyle} onClick={this.handleFriendClick}></div>
-        <div style={expCircleStyle} onClick={this.handleExperienceClick}></div>
-        <Link to='../settings' style={settingsCircleStyle}> </Link>
-        <div style={shotglassStyle}></div>
+        <div
+        class='icon'
+        style={emergencyStyle}
+        onClick={this.handleEmergencyClick}
+        >
+          <Emergency />
+        </div>
+        <div
+        class='icon'
+        style={friendStyle}
+        onClick={this.handleFriendClick}
+        >
+          <Friend />
+        </div>
+        <div 
+        class='icon'
+        onClick={this.handleExperienceClick}
+        style={expCircleStyle}>
+          <Experience />
+        </div>
+        <Link 
+        class='icon'
+        to='../settings' 
+        style={settingsCircleStyle}> 
+        <Settings />
+          </Link>
+        <div style={shotglassStyle}>
+          <Drink5 />
+        </div>
       </div>
+      
     );
   }
 }
