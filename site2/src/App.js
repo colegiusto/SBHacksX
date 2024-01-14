@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Main from './pages/Main';
 import Settings from './pages/Settings';
-import {getBAC, takeDrink, getDrinkGoal} from './bacSim'
+import {getBAC, takeDrink, getDrinkGoal, setTargetBac} from './bacSim'
 
 import { Route, Routes, BrowserRouter } from "react-router-dom"
 
@@ -40,7 +40,7 @@ function App() {
           <div className="App">
               <div className="content">
                   <Routes>
-                      <Route path="/" element={<Main drinkIndex={drinkIndex}takeDrink={td}BAC={BAC}/>}></Route>
+                      <Route path="/" element={<Main setTarget={setTargetBac}drinkIndex={drinkIndex}takeDrink={td}BAC={BAC}/>}></Route>
                       <Route path="/settings" element={<Settings />}></Route>
                   </Routes>
               </div>

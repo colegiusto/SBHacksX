@@ -1,5 +1,5 @@
 let timescale = 60
-let BACGoal = 0.08
+let BACGoal = 0.12
 let v_d = 58.4 
 
 let startTime = (new Date()).getTime()/3600000
@@ -35,4 +35,8 @@ function getDrinkGoal(){
     return Math.max(Math.floor((BACGoal-getBAC())/(1.4/v_d)), 0)
 }
 
-export {getBAC, takeDrink, getDrinkGoal};
+function setTargetBac(tb){
+    BACGoal = tb
+}
+
+export {getBAC, takeDrink, getDrinkGoal, setTargetBac};

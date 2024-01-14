@@ -36,7 +36,11 @@ class Main extends React.Component {
   }
 
   handleExperienceClick() {
-    alert('Experience clicked');
+    let tBac = prompt('Set target BAC');
+    try{
+      this.props.setTarget(Number(tBac))
+    }catch{}
+    
     this.setState({ showExperience: true, showSettings: false });
   }
 
@@ -139,14 +143,14 @@ class Main extends React.Component {
     let drinks = [Drink0, Drink1, Drink2, Drink3, Drink4, Drink5]
 
     return (
-      <div classname='Main'style={containerStyle}>
+      <div className='Main'style={containerStyle}>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
-          <div class='GUI' style={textStyle}>Your BAC is</div>
+          <div className='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>{Math.round(this.props.BAC*1000)/1000 + "%"}</div>
+          <div id='BAC' style={BACtextStyle}>{this.props.BAC.toFixed(2)+"%"}</div>
           </div>
-          <div class='GUI' style={textStyle}>You are BOOZIN</div>
+          <div className='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
         <div
         class='icon'
@@ -175,7 +179,7 @@ class Main extends React.Component {
         <Settings />
           </Link>
         <div style={shotglassStyle}>
-          <img onClick={this.props.takeDrink} src={drinks[this.props.drinkIndex]}/>
+          <img onClick={this.props.takeDrink} src={drinks[Math.min(this.props.drinkIndex, 5)]}/>
         </div>
       </div>
       
