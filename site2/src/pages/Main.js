@@ -8,9 +8,18 @@ import {ReactComponent as Friend} from './Friend.svg';
 import {ReactComponent as Experience} from './Experience.svg';
 import {ReactComponent as Settings} from './Settings.svg';
 
-import {ReactComponent as Drink5} from './shotglass/glass5.svg'
+import Drink0 from'./shotglass/glass0.svg';
+import Drink1 from'./shotglass/glass1.svg';
+import Drink2 from'./shotglass/glass2.svg';
+import Drink3 from'./shotglass/glass3.svg';
+import Drink4 from'./shotglass/glass4.svg';
+import Drink5 from'./shotglass/glass5.svg';
+
+
+
 
 class Main extends React.Component {
+   
   constructor(props) {
     super(props);
 
@@ -19,6 +28,7 @@ class Main extends React.Component {
       showSettings: false,
     };
 
+    
     // Bind the event handlers to the instance
     this.handleExperienceClick = this.handleExperienceClick.bind(this);
     this.handleEmergencyClick = this.handleEmergencyClick.bind(this);
@@ -26,7 +36,11 @@ class Main extends React.Component {
   }
 
   handleExperienceClick() {
-    alert('Experience clicked');
+    let tBac = prompt('Set target BAC');
+    try{
+      this.props.setTarget(Number(tBac))
+    }catch{}
+    
     this.setState({ showExperience: true, showSettings: false });
   }
 
@@ -126,16 +140,17 @@ class Main extends React.Component {
       left: '50%',
       transform: 'translateX(-50%)',
     };
+    let drinks = [Drink0, Drink1, Drink2, Drink3, Drink4, Drink5]
 
     return (
-      <div classname='Main'style={containerStyle}>
+      <div className='Main'style={containerStyle}>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
-          <div class='GUI' style={textStyle}>Your BAC is</div>
+          <div className='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>0.00%</div>
+          <div id='BAC' style={BACtextStyle}>{this.props.BAC.toFixed(2)+"%"}</div>
           </div>
-          <div class='GUI' style={textStyle}>You are BOOZIN</div>
+          <div className='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
         <div
         class='icon'
@@ -164,7 +179,7 @@ class Main extends React.Component {
         <Settings />
           </Link>
         <div style={shotglassStyle}>
-          <Drink5 />
+          <img onClick={this.props.takeDrink} src={drinks[Math.min(this.props.drinkIndex, 5)]}/>
         </div>
       </div>
       

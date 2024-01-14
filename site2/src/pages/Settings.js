@@ -1,59 +1,118 @@
 import React, { useState, useEffect } from 'react';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { getDatabase, ref, child, set, get, onAuthStateChanged } from "firebase/database";
+import '../firebase.js';
 
-function Settings() {
-    const [user, setUser] = useState([]);
-    const [profile, setProfile] = useState([]);
+const Settings = () => {
 
-    const login = useGoogleLogin({
-            onSuccess: (codeResponse) => setUser(codeResponse),
-            onError: (error) => console.log('Login Failed:', error)
-    });
+    const auth = getAuth();
+    const db = getDatabase();
+    const provider = new GoogleAuthProvider();
+    let userId = 0;
 
-    const logOut = () => {
-        googleLogout();
-        setProfile(null);
-    };
+    const login = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                console.log(user)
+                // IdP data available using getAdditionalUserInfo(result)
+                // ...
+                userId = auth.currentUser.uid;
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                console.log(error.message);
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
 
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                    })
-                    .catch((err) => console.log(err));
+    }
+    const logout = () => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
+
+    function writeUserData(userId, ssex, wweight, rrate) {
+        const db = getDatabase();
+        set(ref(db, 'users/' + userId), {
+            sex: ssex,
+            weight: wweight,
+            rate: rrate
+        });
+    }
+
+    function readUserData(userId) {
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+            } else {
+                console.log("No data available");
             }
-        },
-        [user]
-    );
-    
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+    function updateId() {
+        try { userId = auth.currentUser.uid; }
+        catch (e) { }
+    }
+
+    useEffect(() => updateId())
 
     return (
-        <div>
-            <h2>React Google Login</h2>
-            <br />
-            <br />
-            {profile ? (
-                <div>
-                    <h3>User Logged in</h3>
-                    <p>Name: {profile.name}</p>
-                    <p>Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <button onClick={logOut}>Log out</button>
-                </div>
-            ) : (
-                <button onClick={() => login()}>Sign in with Google</button>
-            )}
-        </div>
-    );
+        <>
+            <main >
+                <section>
+                    <div>
+                        <div>
+                            <button
+                                onClick={login}
+                            >
+                                Login
+                            </button>
+                        </div>
+                        <div>
+                            <button
+                                onClick={logout}
+                            >
+                                Logout
+                            </button>
+                        </div>
+
+                        <div>
+                            <button
+                                onClick={() => writeUserData(userId, '2', 2, 2)}
+                            >
+                                pew
+                            </button>
+                        </div>
+
+                        <div>
+                            <button
+                                onClick={() => readUserData(userId)}
+                            >
+                                aaa
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+        </>
+    )
 }
-export default Settings;
+
+export default Settings
