@@ -197,8 +197,11 @@ class Main extends React.Component {
         style={settingsCircleStyle}> 
         <Settings />
           </Link>
-        <div style={shotglassStyle}>
-          <img onClick={this.props.takeDrink} src={drinks[Math.min(this.props.drinkIndex, 5)]}/>
+        <div onClick={this.props.takeDrink} style={shotglassStyle}>
+          <img src={drinks[Math.min(this.props.drinkIndex, 5)]}/>
+        </div>
+        <div style={shotglassStyle}onClick={this.props.takeDrink} >
+          <div class='GUI' style={{transform: 'translateY(-220%)', scale: '300%'}}>{this.props.drinkIndex}</div>
         </div>
       </div>
       
