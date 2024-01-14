@@ -1,9 +1,9 @@
-// Circle.js
+// Main.js
 
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class Circle extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
 
@@ -136,7 +136,7 @@ class Circle extends React.Component {
     };
 
     return (
-      <div classname='Circle'style={containerStyle}>
+      <div classname='Main'style={containerStyle}>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
           <div class='GUI' style={textStyle}>Your BAC is</div>
@@ -155,4 +155,4 @@ class Circle extends React.Component {
   }
 }
 
-export default Circle;
+export default Main;

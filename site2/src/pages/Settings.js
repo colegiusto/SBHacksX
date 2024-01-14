@@ -1,163 +1,59 @@
-// Settings.js
+import React, { useState, useEffect } from 'react';
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
-import React from 'react';
+function Settings() {
+    const [user, setUser] = useState([]);
+    const [profile, setProfile] = useState([]);
 
-class Settings extends React.Component {
-  constructor(props) {
-    super(props);
+    const login = useGoogleLogin({
+            onSuccess: (codeResponse) => setUser(codeResponse),
+            onError: (error) => console.log('Login Failed:', error)
+    });
 
-    this.state = {
-      showExperience: false,
-      showSettings: false,
+    const logOut = () => {
+        googleLogout();
+        setProfile(null);
     };
 
-    // Bind the event handlers to the instance
-    this.handleExperienceClick = this.handleExperienceClick.bind(this);
-    this.handleSettingsClick = this.handleSettingsClick.bind(this);
-    this.handleEmergencyClick = this.handleEmergencyClick.bind(this);
-    this.handleFriendClick = this.handleFriendClick.bind(this);
-  }
-
-  handleExperienceClick() {
-    alert('Experience clicked');
-    this.setState({ showExperience: true, showSettings: false });
-  }
-
-  handleSettingsClick() {
-    alert('Settings clicked');
-    this.setState({ showSettings: true, showExperience: false });
-  }
-
-  handleEmergencyClick() {
-    alert('Emergency services called');
-  }
-
-  handleFriendClick() {
-    alert('A friend has been contacted');
-  }
-
-  render() {
-    const { showExperience, showSettings } = this.state;
-
-    const containerStyle = {
-      position: 'relative',
-      height: '100vh', // Set the container height to the full viewport height
-    };
-
-    const circleContainerStyle = {
-      position: 'absolute',
-      top: '40%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      textAlign: 'center',
-    };
-
-    const BACcircleStyle = {
-      width: '52vmin',
-      height: '52vmin',
-      borderRadius: '50%',
-      backgroundColor: 'blue', // You can change the color as desired
-      margin: '0 auto', // Center the circle horizontally
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    };
-
-    const BACtextStyle = {
-      color: 'white',
-
-    };
-
-    const topLeftCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
-      borderRadius: '50%',
-      backgroundColor: 'green', // You can change the color as desired
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      cursor: 'pointer',
-    };
-
-    const topRightCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
-      borderRadius: '50%',
-      backgroundColor: 'red', // You can change the color as desired
-      position: 'absolute',
-      top: '0',
-      right: '0',
-      cursor: 'pointer',
-    };
-
-    const expCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
-      borderRadius: '50%',
-      backgroundColor: showExperience ? 'darkblue' : 'green', // Change color when clicked
-      position: 'absolute',
-      bottom: '0',
-      left: '0',
-      cursor: 'pointer',
-    };
-
-    const settingsCircleStyle = {
-      width: '27vmin',
-      height: '27vmin',
-      borderRadius: '50%',
-      backgroundColor: showSettings ? 'darkred' : 'red', // Change color when clicked
-      position: 'absolute',
-      bottom: '0',
-      right: '0',
-      cursor: 'pointer',
-    };
-
-    const shotglassStyle = {
-      width: '27vmin',
-      height: '27vmin',
-      borderRadius: '50%',
-      backgroundColor: 'pink', // You can change the color as desired
-      position: 'absolute',
-      bottom: '0',
-      left: '50%',
-      transform: 'translateX(-50%)', // Center the pink circle horizontally
-      cursor: 'pointer',
-    };
-
-    const textStyle = {
-      color: 'black', // You can change the text color as desired
-    };
-
-    const ringStyle = {
-      width: '185vw',
-      height: '185vw',
-      borderRadius: '50%',
-      border: '10px solid orange', // You can change the color and size as desired
-      position: 'absolute',
-      bottom: '-150vw',
-      left: '50%',
-      transform: 'translateX(-50%)',
-    };
+    useEffect(
+        () => {
+            if (user) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${user.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        setProfile(res.data);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        },
+        [user]
+    );
+    
 
     return (
-      <div classname='Settings'style={containerStyle}>
-      <div style={ringStyle}></div>
-        <div style={circleContainerStyle}>
-          <div class='GUI' style={textStyle}>Your BAC is</div>
-          <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>SETTINGS</div>
-          </div>
-          <div class='GUI' style={textStyle}>You are BOOZIN</div>
+        <div>
+            <h2>React Google Login</h2>
+            <br />
+            <br />
+            {profile ? (
+                <div>
+                    <h3>User Logged in</h3>
+                    <p>Name: {profile.name}</p>
+                    <p>Email Address: {profile.email}</p>
+                    <br />
+                    <br />
+                    <button onClick={logOut}>Log out</button>
+                </div>
+            ) : (
+                <button onClick={() => login()}>Sign in with Google</button>
+            )}
         </div>
-        <div style={topLeftCircleStyle} onClick={this.handleEmergencyClick}></div>
-        <div style={topRightCircleStyle} onClick={this.handleFriendClick}></div>
-        <div style={expCircleStyle} onClick={this.handleExperienceClick}></div>
-        <div style={settingsCircleStyle} onClick={this.handleSettingsClick}></div>
-        <div style={shotglassStyle}></div>
-      </div>
     );
-  }
 }
-
 export default Settings;
