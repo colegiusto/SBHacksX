@@ -135,7 +135,7 @@ class Main extends React.Component {
         <div style={circleContainerStyle}>
           <div class='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>{Math.round(this.props.BAC*100)/100 + "%"}</div>
+          <div id='BAC' style={BACtextStyle}>{Math.round(this.props.BAC*1000)/1000 + "%"}</div>
           </div>
           <div class='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
