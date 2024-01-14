@@ -31,3 +31,7 @@ code {
 .GUI {
   font-family: 'FFAF';
 }
+
+.icon{
+  scale: 0.8;
+}
