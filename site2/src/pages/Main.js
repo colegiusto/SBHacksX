@@ -15,7 +15,7 @@ import Drink3 from'./shotglass/glass3.svg';
 import Drink4 from'./shotglass/glass4.svg';
 import Drink5 from'./shotglass/glass5.svg';
 
-
+import spotlight from'./spotlight.svg';
 
 
 class Main extends React.Component {
@@ -58,11 +58,12 @@ class Main extends React.Component {
     const containerStyle = {
       position: 'relative',
       height: '100vh', // Set the container height to the full viewport height
+      backgroundColor: '#3e1a1a'
     };
 
     const circleContainerStyle = {
       position: 'absolute',
-      top: '40%',
+      top: '35%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
       textAlign: 'center',
@@ -78,6 +79,16 @@ class Main extends React.Component {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+    };
+
+    const spotlightContainerStyle = {
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '30vw',
+      height: '100%',
+      border: 'solid',
     };
 
     const BACtextStyle = {
@@ -144,6 +155,9 @@ class Main extends React.Component {
 
     return (
       <div className='Main'style={containerStyle}>
+      <div style={spotlightContainerStyle}>
+        <img src={spotlight} style={{transform: 'translateX(-16.5%)'}}/>
+      </div>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
           <div className='GUI' style={textStyle}>Your BAC is</div>
