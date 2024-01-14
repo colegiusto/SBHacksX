@@ -19,21 +19,20 @@ function App() {
     }
 
     useEffect(() =>{
-    console.log("ahh");
-    let intervalId;
+        let intervalId;
 
-    if (!intervalId) {        
-        intervalId = setInterval(() => {
-            setBAC(getBAC());
-            setDrinkIndex(getDrinkGoal())
-        }, 1000);
-    }
-    
+        if (!intervalId) {        
+            intervalId = setInterval(() => {
+                setBAC(getBAC());
+                setDrinkIndex(getDrinkGoal())
+            }, 1000);
+        }
+        
 
-    return () => {
-        clearInterval(intervalId);
-    };
-}, []);
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
 
 
   return (
