@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { getDatabase, ref, child, set, get } from "firebase/database";
+import { getDatabase, ref, child, set, get, onAuthStateChanged } from "firebase/database";
 import '../firebase.js';
 
 const Settings = () => {
@@ -8,7 +8,7 @@ const Settings = () => {
     const auth = getAuth();
     const db = getDatabase();
     const provider = new GoogleAuthProvider();
-    
+    let userId = 0;
 
     const login = () => {
         signInWithPopup(auth, provider)
@@ -21,6 +21,7 @@ const Settings = () => {
                 console.log(user)
                 // IdP data available using getAdditionalUserInfo(result)
                 // ...
+                userId = auth.currentUser.uid;
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;
@@ -64,9 +65,12 @@ const Settings = () => {
         });
     }
 
-    const userId = auth.currentUser.uid;
-    const clc = writeUserData(userId, '2', 2, 2);
-    const rlr = readUserData(userId);
+    function updateId() {
+        try { userId = auth.currentUser.uid; }
+        catch (e) { }
+    }
+
+    useEffect(() => updateId())
 
     return (
         <>
