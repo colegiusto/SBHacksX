@@ -7,8 +7,10 @@ let drinkTimes = []
 
 function takeDrink(){
     drinkTimes = [...drinkTimes, ((new Date()).getTime()/3600000-startTime)*timescale]
-    console.log("yo")
 }
+
+
+
 
 function getBAC(){
     let time = ((new Date()).getTime()/3600000- startTime)*timescale
@@ -22,6 +24,12 @@ function getBAC(){
     });
     return sum
 }
+
+function deb(){
+    deb.sa = 0
+    deb.bac = 0
+}
+
 
 function getDrinkGoal(){
     return Math.max(Math.floor((BACGoal-getBAC())/(1.4/v_d)), 0)
