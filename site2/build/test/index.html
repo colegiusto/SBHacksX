@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAC Test</title>
+</head>
+<body>
+    <div id="bac">0.0</div>
+    <div id="time">0</div>
+    <script type="text/javascript">
+        timescale = 60;
+        function coroutine(f, arg) {
+            var o = f(arg); // instantiate the coroutine
+            o.next(); // execute until the first yield
+            return function(x) {
+                o.next(x);
+            }
+        }
+        let interface = {timesteps: [], blabel: document.getElementById("bac"), tlabel: document.getElementById("time"), drank: false, factor:1, drinkTime: false}
+        var update = coroutine(function*(arg){
+            console.log(arg)
+            const d = new Date()
+            const startTime = d.getTime()
+            var oldTime = d.getTime()
+            var bac = 0
+            var sa = 0
+            var male = true
+            const weight = 80
+            const v_d = weight * (male ? 0.71 : 0.58)
+            console.log(v_d)
+            var d_g = true
+
+            let P=1,I=0,D=0.1
+            let af = 1
+            let Vf =1
+
+            while(true){
+                yield
+                const d = new Date()
+                var dt = d.getTime()-oldTime
+                var totalTime = (d.getTime()-startTime)/3600000*timescale
+                var oldTime = d.getTime()
+                var dt = dt/3600000*timescale
+
+                if(arg.drank){
+                    console.log("Drank at: " + totalTime)
+                    arg.drank = false
+                    sa += 1.4/v_d*arg.factor*Vf
+                }
+                var transfer = 10*sa*af
+                var decay = 1/(1+1/(500*bac+0.0001))*0.015
+                
+                bac += (transfer-decay)*dt
+                sa -= transfer*dt
+
+                arg.timesteps.push({Time:totalTime, BAC:bac})
+
+                arg.tlabel.innerHTML = totalTime
+                arg.blabel.innerHTML=bac
+            }
+        }, interface)
+        setInterval(update, 1000)
+        interface.drank = true
+        setTimeout(()=>interface.drank=true, 10000)
+        
+    </script>
+</body>
+</html>
