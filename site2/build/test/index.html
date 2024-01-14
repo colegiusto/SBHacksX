@@ -10,16 +10,27 @@
     <div id="time">0</div>
     <script type="text/javascript">
         timescale = 60;
-        function coroutine(f, arg) {
-            var o = f(arg); // instantiate the coroutine
+        function coroutine(f, ins,outs) {
+            var o = f(ins,outs); // instantiate the coroutine
             o.next(); // execute until the first yield
             return function(x) {
                 o.next(x);
             }
         }
-        let interface = {timesteps: [], blabel: document.getElementById("bac"), tlabel: document.getElementById("time"), drank: false, factor:1, drinkTime: false}
-        var update = coroutine(function*(arg){
-            console.log(arg)
+        let ins =  {
+            blabel: document.getElementById("bac"), 
+            tlabel: document.getElementById("time"), 
+            drinks: 0, 
+            factor:1
+        }
+
+        let outs = {
+            timesteps: [],
+            drinksDue: 0,
+            time: 0,
+        }
+        var update = coroutine(function*(ins, outs){
+            console.log(ins)
             const d = new Date()
             const startTime = d.getTime()
             var oldTime = d.getTime()
@@ -43,26 +54,26 @@
                 var oldTime = d.getTime()
                 var dt = dt/3600000*timescale
 
-                if(arg.drank){
+                if(ins.drinks > 0){
                     console.log("Drank at: " + totalTime)
-                    arg.drank = false
-                    sa += 1.4/v_d*arg.factor*Vf
+                    sa += 1.4/v_d*ins.factor*Vf*ins.drinks
+                    ins.drinks = 0
                 }
-                var transfer = 10*sa*af
+                var transfer = 7*sa*af
                 var decay = 1/(1+1/(500*bac+0.0001))*0.015
                 
                 bac += (transfer-decay)*dt
                 sa -= transfer*dt
 
-                arg.timesteps.push({Time:totalTime, BAC:bac})
+                outs.timesteps.push({Time:totalTime, BAC:bac})
 
-                arg.tlabel.innerHTML = totalTime
-                arg.blabel.innerHTML=bac
+                ins.tlabel.innerHTML = totalTime
+                ins.blabel.innerHTML = bac
             }
-        }, interface)
+        }, ins, outs)
         setInterval(update, 1000)
-        interface.drank = true
-        setTimeout(()=>interface.drank=true, 10000)
+        ins.drinks = 2
+        setTimeout(()=>ins.drinks+= 0, 10000)
         
     </script>
 </body>
