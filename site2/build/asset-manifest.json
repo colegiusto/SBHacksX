@@ -1,25 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.aa47e393.css",
-    "main.js": "/static/js/main.6be0c043.js",
+    "main.css": "/static/css/main.f0a845fc.css",
+    "main.js": "/static/js/main.d8b5c40b.js",
     "static/js/787.1e179c34.chunk.js": "/static/js/787.1e179c34.chunk.js",
-    "static/media/Experience.svg": "/static/media/Experience.5714e1b18625a8a7573540771587fb52.svg",
-    "static/media/Emergency.svg": "/static/media/Emergency.399e03cfe07b715001b0c095c46d8042.svg",
-    "static/media/Friend.svg": "/static/media/Friend.da4848b37b5020eaa1e76101fd605316.svg",
-    "static/media/Settings.svg": "/static/media/Settings.fe8955f60861a102a720d9f5d4b115bf.svg",
-    "static/media/glass5.svg": "/static/media/glass5.89b8d12827d48458fd80d1b8d9333699.svg",
-    "static/media/glass4.svg": "/static/media/glass4.69e0b1725993cb8a12000f090916f2a9.svg",
-    "static/media/glass3.svg": "/static/media/glass3.94f99a2b0f64c005ef06e0ddf6b3ba52.svg",
-    "static/media/glass2.svg": "/static/media/glass2.cd7174ed36c14cfe3b14b69345d4aeb3.svg",
-    "static/media/glass1.svg": "/static/media/glass1.4a3f404501aef0078b9e638c0ee04332.svg",
-    "static/media/glass0.svg": "/static/media/glass0.d55fd219ae810a7a71270a1dc9360c11.svg",
+    "static/media/spotlight.svg": "/static/media/spotlight.688591a2a95ded6d4eb2f032514c5beb.svg",
+    "static/media/Experience.svg": "/static/media/Experience.633fe96832799b0eb2f45f10d13ef0e5.svg",
+    "static/media/Emergency.svg": "/static/media/Emergency.4587e473146d9363b2c2232a83364f17.svg",
+    "static/media/Friend.svg": "/static/media/Friend.57247baa4cb1036377c8cf2a4bfb4d09.svg",
+    "static/media/Settings.svg": "/static/media/Settings.b0b6a028576ca44db47f03ecc1bcdd0e.svg",
+    "static/media/glass5.svg": "/static/media/glass5.8d2ba2fdb32c2cc4aaee43d5f5aa6bab.svg",
+    "static/media/glass4.svg": "/static/media/glass4.d52e53023445d91464ed9cdcb66e63e8.svg",
+    "static/media/glass3.svg": "/static/media/glass3.3a18c1cc4e15cea193cafcb58000369c.svg",
+    "static/media/glass2.svg": "/static/media/glass2.292328b3645172054aa9bf5c38d04db5.svg",
+    "static/media/glass1.svg": "/static/media/glass1.eb753593e27a0d1ed83de572a6022773.svg",
+    "static/media/glass0.svg": "/static/media/glass0.621ce01dd6e66aed62de0179bcf66bd7.svg",
     "index.html": "/index.html",
-    "main.aa47e393.css.map": "/static/css/main.aa47e393.css.map",
-    "main.6be0c043.js.map": "/static/js/main.6be0c043.js.map",
+    "main.f0a845fc.css.map": "/static/css/main.f0a845fc.css.map",
+    "main.d8b5c40b.js.map": "/static/js/main.d8b5c40b.js.map",
     "787.1e179c34.chunk.js.map": "/static/js/787.1e179c34.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.aa47e393.css",
-    "static/js/main.6be0c043.js"
+    "static/css/main.f0a845fc.css",
+    "static/js/main.d8b5c40b.js"
   ]
 }
