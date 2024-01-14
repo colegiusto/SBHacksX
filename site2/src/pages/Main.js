@@ -11,6 +11,7 @@ import {ReactComponent as Settings} from './Settings.svg';
 import {ReactComponent as Drink5} from './shotglass/glass5.svg'
 
 class Main extends React.Component {
+   
   constructor(props) {
     super(props);
 
@@ -19,6 +20,7 @@ class Main extends React.Component {
       showSettings: false,
     };
 
+    
     // Bind the event handlers to the instance
     this.handleExperienceClick = this.handleExperienceClick.bind(this);
     this.handleEmergencyClick = this.handleEmergencyClick.bind(this);
@@ -133,7 +135,7 @@ class Main extends React.Component {
         <div style={circleContainerStyle}>
           <div class='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>0.00%</div>
+          <div id='BAC' style={BACtextStyle}>{Math.round(this.props.BAC*100)/100 + "%"}</div>
           </div>
           <div class='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
