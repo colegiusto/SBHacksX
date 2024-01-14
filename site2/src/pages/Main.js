@@ -164,7 +164,7 @@ class Main extends React.Component {
           <div style={BACcircleStyle}>
           <div id='BAC' style={BACtextStyle}>{this.props.BAC.toFixed(2)+"%"}</div>
           </div>
-          <div className='GUI' style={textStyle}>You are BOOZIN</div>
+          {this.props.drinkIndex == 0 ? <div className='GUI' style={textStyle}>{"Minutes until next Drink:\n" + this.props.timeLeft.toFixed(1)}</div>: <div>You are BOOZIN!</div>}
         </div>
         <div
         class='icon'

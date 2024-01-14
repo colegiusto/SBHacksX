@@ -1,5 +1,5 @@
 let timescale = 60
-let BACGoal = 0.12
+let BACGoal = 0.08
 let v_d = 58.4 
 
 let startTime = (new Date()).getTime()/3600000
@@ -39,4 +39,8 @@ function setTargetBac(tb){
     BACGoal = tb
 }
 
-export {getBAC, takeDrink, getDrinkGoal, setTargetBac};
+function timeTilNext(){
+    return (getBAC()-BACGoal+1.4/v_d)/0.015*60
+}
+
+export {getBAC, takeDrink, getDrinkGoal, setTargetBac, timeTilNext};
