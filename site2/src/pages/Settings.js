@@ -1,8 +1,8 @@
-// Items.js
+// Settings.js
 
 import React from 'react';
 
-class Circle extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
 
@@ -141,12 +141,12 @@ class Circle extends React.Component {
     };
 
     return (
-      <div classname='Circle'style={containerStyle}>
+      <div classname='Settings'style={containerStyle}>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
           <div class='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>Centered Text</div>
+          <div id='BAC' style={BACtextStyle}>SETTINGS</div>
           </div>
           <div class='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
@@ -160,4 +160,4 @@ class Circle extends React.Component {
   }
 }
 
-export default Circle;
+export default Settings;
