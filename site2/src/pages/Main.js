@@ -8,7 +8,15 @@ import {ReactComponent as Friend} from './Friend.svg';
 import {ReactComponent as Experience} from './Experience.svg';
 import {ReactComponent as Settings} from './Settings.svg';
 
-import {ReactComponent as Drink5} from './shotglass/glass5.svg'
+import Drink0 from'./shotglass/glass0.svg';
+import Drink1 from'./shotglass/glass1.svg';
+import Drink2 from'./shotglass/glass2.svg';
+import Drink3 from'./shotglass/glass3.svg';
+import Drink4 from'./shotglass/glass4.svg';
+import Drink5 from'./shotglass/glass5.svg';
+
+
+
 
 class Main extends React.Component {
    
@@ -128,6 +136,7 @@ class Main extends React.Component {
       left: '50%',
       transform: 'translateX(-50%)',
     };
+    let drinks = [Drink0, Drink1, Drink2, Drink3, Drink4, Drink5]
 
     return (
       <div classname='Main'style={containerStyle}>
@@ -166,7 +175,7 @@ class Main extends React.Component {
         <Settings />
           </Link>
         <div style={shotglassStyle}>
-          <Drink5 />
+          <img onClick={this.props.takeDrink} src={drinks[this.props.drinkIndex]}/>
         </div>
       </div>
       
