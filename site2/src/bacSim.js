@@ -2,8 +2,14 @@ let timescale = 60
 let BACGoal = 0.08
 let v_d = 58.4 
 
+
+
 let startTime = (new Date()).getTime()/3600000
 let drinkTimes = []
+
+function setParams(params){
+    v_d = params.weight * params.male ? 0.71: 0.58
+}
 
 function takeDrink(){
     drinkTimes = [...drinkTimes, ((new Date()).getTime()/3600000-startTime)*timescale]
@@ -19,8 +25,13 @@ function getBAC(){
 
     let vdts = dts.filter((t) => time>t && (time-t)*0.015 < 1.4/v_d)
     let sum = 0
+    let decre = true
     vdts.forEach(t => {
-        sum += 1.4/v_d - (time-t)*0.015
+        sum += 1.4/v_d 
+        if(decre){
+            decre = false
+            sum -= (time-t)*0.015
+        }
     });
     return sum
 }
@@ -32,7 +43,7 @@ function deb(){
 
 
 function getDrinkGoal(){
-    return Math.max(Math.floor((BACGoal-getBAC())/(1.4/v_d)), 0)
+    return Math.min(Math.max(Math.floor((BACGoal-getBAC())/(1.4/v_d)), 0), 5)
 }
 
 function setTargetBac(tb){
