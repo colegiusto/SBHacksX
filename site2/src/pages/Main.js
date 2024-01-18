@@ -8,15 +8,7 @@ import {ReactComponent as Friend} from './Friend.svg';
 import {ReactComponent as Experience} from './Experience.svg';
 import {ReactComponent as Settings} from './Settings.svg';
 
-import Drink0 from'./shotglass/glass0.svg';
-import Drink1 from'./shotglass/glass1.svg';
-import Drink2 from'./shotglass/glass2.svg';
-import Drink3 from'./shotglass/glass3.svg';
-import Drink4 from'./shotglass/glass4.svg';
-import Drink5 from'./shotglass/glass5.svg';
-
-import spotlight from'./spotlight.svg';
-
+import {ReactComponent as Drink5} from './shotglass/glass5.svg'
 
 class Main extends React.Component {
    
@@ -36,11 +28,7 @@ class Main extends React.Component {
   }
 
   handleExperienceClick() {
-    let tBac = prompt('Set target BAC');
-    try{
-      this.props.setTarget(Number(tBac))
-    }catch{}
-    
+    alert('Experience clicked');
     this.setState({ showExperience: true, showSettings: false });
   }
 
@@ -58,12 +46,11 @@ class Main extends React.Component {
     const containerStyle = {
       position: 'relative',
       height: '100vh', // Set the container height to the full viewport height
-      backgroundColor: '#3e1a1a'
     };
 
     const circleContainerStyle = {
       position: 'absolute',
-      top: '35%',
+      top: '40%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
       textAlign: 'center',
@@ -81,25 +68,10 @@ class Main extends React.Component {
       justifyContent: 'center',
     };
 
-    const spotlightContainerStyle = {
-      position: 'absolute',
-      left: '50%',
-      top: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '30vw',
-      height: '100%',
-      border: 'solid',
-    };
-
     const BACtextStyle = {
       color: 'white',
       fontSize: '10vmin',
     };
-
-    // const GUItextStyle = {
-    //   color: '#3e1a1a',
-    //   fontSize: '4vmin',
-    // }
 
     const emergencyStyle = {
       borderRadius: '50%',
@@ -156,20 +128,16 @@ class Main extends React.Component {
       left: '50%',
       transform: 'translateX(-50%)',
     };
-    let drinks = [Drink0, Drink1, Drink2, Drink3, Drink4, Drink5]
 
     return (
-      <div className='Main'style={containerStyle}>
-      <div style={spotlightContainerStyle}>
-        <img src={spotlight} style={{transform: 'translateX(-16.5%)'}}/>
-      </div>
+      <div classname='Main'style={containerStyle}>
       <div style={ringStyle}></div>
         <div style={circleContainerStyle}>
-          <div className='GUI'>Your  BAC  is</div>
+          <div class='GUI' style={textStyle}>Your BAC is</div>
           <div style={BACcircleStyle}>
-          <div id='BAC' style={BACtextStyle}>{this.props.BAC.toFixed(2)+"%"}</div>
+          <div id='BAC' style={BACtextStyle}>{Math.round(this.props.BAC*1000)/1000 + "%"}</div>
           </div>
-          {this.props.drinkIndex == 0 ? <div className='GUI'>{"Minutes until next Drink:\n" + this.props.timeLeft.toFixed(0)}</div>: <div class='GUI'>You are BOOZIN!</div>}
+          <div class='GUI' style={textStyle}>You are BOOZIN</div>
         </div>
         <div
         class='icon'
@@ -197,11 +165,8 @@ class Main extends React.Component {
         style={settingsCircleStyle}> 
         <Settings />
           </Link>
-        <div onClick={this.props.takeDrink} style={shotglassStyle}>
-          <img src={drinks[Math.min(this.props.drinkIndex, 5)]}/>
-        </div>
-        <div style={shotglassStyle}onClick={this.props.takeDrink} >
-          <div class='GUI' style={{transform: 'translateY(-220%)', scale: '300%'}}>{this.props.drinkIndex}</div>
+        <div style={shotglassStyle}>
+          <Drink5 />
         </div>
       </div>
       

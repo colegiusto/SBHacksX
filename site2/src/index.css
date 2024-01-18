@@ -32,3 +32,37 @@ code {
   font-family: 'Daydream';
   font-size: '4vmin';
 }
+
+.icon {
+    scale: 0.8;
+    animation: unhovered 0.3s
+}
+
+    .icon:hover {
+        scale: 1;
+        animation: hovered 0.3s
+    }
+
+@keyframes hovered {
+    from {
+        scale: 0.8
+    }
+
+    to {
+        scale: 1
+    }
+}
+
+@keyframes unhovered {
+    from {
+        scale: 1
+    }
+
+    to {
+        scale: 0.8
+    }
+}
+
+.back {
+    scale: 20;
+}
